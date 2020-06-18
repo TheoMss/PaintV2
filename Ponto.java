@@ -12,7 +12,7 @@ public class Ponto extends Figura
 	  
     public Ponto (int x, int y, Color cor)
     {
-        super (cor);
+        super (cor, cor);
 
         this.x = x;
         this.y = y;

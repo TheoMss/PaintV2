@@ -24,7 +24,7 @@ public class Janela extends JFrame
     protected JLabel statusBar1 = new JLabel ("Mensagem:"),
                      statusBar2 = new JLabel ("Coordenada:");
 
-    protected boolean esperaPonto, esperaInicioReta, esperaFimReta;
+    protected boolean esperaPonto, esperaInicioReta, esperaFimReta, esperaRaio, esperaLocalCirculo;
 
     protected Color corFora = Color.BLACK;
     protected Color corDentro = Color.WHITE;
@@ -244,6 +244,23 @@ public class Janela extends JFrame
                         figuras.get(figuras.size()-1).torneSeVisivel(pnlDesenho.getGraphics());
                         statusBar1.setText("Mensagem:");    
                     }
+                    else
+                    if (esperaLocalCirculo)
+                    {
+                        p1 = new Ponto (e.getX(), e.getY(), corFora);
+                        esperaLocalCirculo = false;
+                        esperaRaio = true;
+                        statusBar1.setText("Mensagem: clique o ponto final da figura");    
+                     }
+                     else
+                    if (esperaRaio)
+                    {
+                        esperaLocalCirculo = false;
+                        esperaRaio = false;
+                        figuras.add (new Circulo(p1.getX(), p1.getY(), e.getX(), e.getY(), corFora, corDentro));
+                        figuras.get(figuras.size()-1).torneSeVisivel(pnlDesenho.getGraphics());
+                        statusBar1.setText("Mensagem:");    
+                    }
         }
         
         public void mouseReleased (MouseEvent e)
@@ -272,8 +289,10 @@ public class Janela extends JFrame
           public void actionPerformed (ActionEvent e)    
           {
               esperaPonto      = true;
-              esperaInicioReta = false;
-              esperaFimReta    = false;
+            esperaInicioReta = false;
+            esperaFimReta    = false;
+            esperaLocalCirculo = false;
+            esperaRaio      = false;
 
               ferramentaEmUso = "ponto";
 
@@ -288,6 +307,8 @@ public class Janela extends JFrame
             esperaPonto      = false;
             esperaInicioReta = true;
             esperaFimReta    = false;
+            esperaLocalCirculo = false;
+            esperaRaio      = false;
 
             ferramentaEmUso = "reta";
 
@@ -300,8 +321,10 @@ public class Janela extends JFrame
         public void actionPerformed (ActionEvent e)    
         {
             esperaPonto      = false;
-            esperaInicioReta = true;
-            esperaFimReta    = true;
+            esperaInicioReta = false;
+            esperaFimReta    = false;
+            esperaLocalCirculo = true;
+            esperaRaio      = false;
 
             ferramentaEmUso = "circulo";
 

@@ -1,31 +1,31 @@
 import java.awt.*;
 import java.util.*;
 
-public class Circulo extends Figura
+public class Quadrado extends Figura
 {
     protected Ponto p1, p2;
-    protected int diametro;
+    protected int lado;
     
     
-    public Circulo (int x1, int y1, int x2, int y2)
+    public Quadrado (int x1, int y1, int x2, int y2)
     {
         this (x1, y1, x2, y2, Color.BLACK, Color.WHITE);
-        double diametroDouble = Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2));
-        this.diametro = (int) diametroDouble;
+        double ladoDouble = Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2));
+        this.lado = (int) ladoDouble;
     }
 	
-    public Circulo (int x1, int y1, int x2, int y2, Color cor, Color cor2)
+    public Quadrado (int x1, int y1, int x2, int y2, Color cor, Color cor2)
     {
         super(cor, cor2);
         
 
         this.p1 = new Ponto (x1,y1,cor);
         this.p2 = new Ponto (x2,y2,cor);
-        double diametroDouble = Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2));
-        this.diametro = (int) diametroDouble;
+        double ladoDouble = Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2));
+        this.lado = (int) ladoDouble;
     }
 
-    public Circulo (String s)
+    public Quadrado (String s)
     {
         StringTokenizer quebrador = new StringTokenizer(s,":");
 
@@ -49,8 +49,8 @@ public class Circulo extends Figura
         this.p2  = new Ponto (x2,y2,cor);
         this.cor = cor;
         this.cor2 = cor2;
-        double diametroDouble = Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2));
-        this.diametro = (int) diametroDouble;
+        double ladoDouble = Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2));
+        this.lado = (int) ladoDouble;
        
 
     }
@@ -75,18 +75,22 @@ public class Circulo extends Figura
         return this.p2;
     }
 
-    public void torneSeVisivel (Graphics g)
-    {
-        g.setColor(this.cor);
-        g.drawOval(this.p1.getX(), this.p1.getY(),   // ponto inicial 
-                    this.diametro, this.diametro);  // tamanho
-        g.setColor(this.cor2);
-        g.fillOval(this.p1.getX(), this.p1.getY(),   // ponto inicial 
-                    this.diametro, this.diametro);
-        g.setColor(this.cor);
-        
+   // public void torneSeVisivel (Graphics g)
+   // {
+         //  Graphics2D g2 = (Graphics2D) g;
+            
+
+      //  g.setColor(this.cor);
+      //  g2.draw(new Rectangle2D.Double(this.p1.getX(),this.p1.getY(),
+      //                         lado,
+     //                          lado));
+      //  g.setColor(this.cor2);
+      //  g.fillOval(this.p1.getX(), this.p1.getY(),   // ponto inicial 
+     //               this.diametro, this.diametro);
+      //  g.setColor(this.cor);
+    //
                     
-    }
+   // }
 
     public String toString()
     {
