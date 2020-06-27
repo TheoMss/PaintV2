@@ -24,11 +24,13 @@ public class Janela extends JFrame
     protected JLabel statusBar1 = new JLabel ("Mensagem:"),
                      statusBar2 = new JLabel ("Coordenada:");
 
-    protected boolean esperaPonto, esperaInicioReta, esperaFimReta, esperaRaio, esperaLocalCirculo;
+    protected boolean esperaPonto, esperaInicioReta, esperaFimReta, esperaRaio, esperaLocalCirculo, 
+                      esperaLocalElipse, esperaPrimeiroRaio, esperaSegundoRaio;
 
     protected Color corFora = Color.BLACK;
     protected Color corDentro = Color.WHITE;
     protected Ponto p1;
+    protected Ponto p2;
     protected String ferramentaEmUso;
     
     protected Vector<Figura> figuras = new Vector<Figura>();
@@ -157,6 +159,7 @@ public class Janela extends JFrame
         btnPonto.addActionListener (new DesenhoDePonto ());
         btnLinha.addActionListener (new DesenhoDeReta ());
         btnCirculo.addActionListener (new DesenhoDeCirculo ());
+        btnElipse.addActionListener(new DesenhoDeElipse());
         btnCorFora.addActionListener (new SelecionarCorFora());
         btnCorDentro.addActionListener (new SelecionarCorDentro());
 
@@ -189,7 +192,7 @@ public class Janela extends JFrame
         
         this.addWindowListener (new FechamentoDeJanela());
 
-        this.setSize (800,600);
+        this.setSize (1000,600);
         this.setVisible (true);
     }
 
@@ -213,14 +216,7 @@ public class Janela extends JFrame
         
         public void mousePressed (MouseEvent e)
         {
-            switch (ferramentaEmUso) {
-                case "ponto": 
-                    new DesenhoDePonto();
-                    break;
-            
-                default:
-                    break;
-            }
+          
             if (esperaPonto)
             {
                 figuras.add (new Ponto (e.getX(), e.getY(), corFora));
@@ -261,6 +257,35 @@ public class Janela extends JFrame
                         figuras.get(figuras.size()-1).torneSeVisivel(pnlDesenho.getGraphics());
                         statusBar1.setText("Mensagem:");    
                     }
+                    else
+                    if (esperaLocalElipse)
+                    {
+                        p1 = new Ponto (e.getX(), e.getY(), corFora);
+                        esperaLocalElipse = false;
+                        esperaPrimeiroRaio = true;
+                        statusBar1.setText("Mensagem: clique o ponto do primeiro raio da elipse");    
+                     }
+                     
+                     else
+                    if (esperaPrimeiroRaio)
+                    {
+                        p2 = new Ponto (e.getX(), e.getY(), corFora);
+                        esperaLocalElipse = false;
+                        esperaPrimeiroRaio = false;
+                        esperaSegundoRaio = true;
+                        statusBar1.setText("Mensagem: clique o ponto do segundo  raio da elipse");
+                        
+                    }else
+                    if (esperaSegundoRaio)
+                    {
+                      
+                        esperaLocalElipse = false;
+                        esperaPrimeiroRaio = false;
+                        esperaSegundoRaio = false;
+                        figuras.add (new Elipse(p1.getX(), p1.getY(), p2.getX(), p2.getY(), e.getX(), e.getY(), corFora, corDentro));
+                        figuras.get(figuras.size()-1).torneSeVisivel(pnlDesenho.getGraphics());
+                        statusBar1.setText("Mensagem:");    
+                    }
         }
         
         public void mouseReleased (MouseEvent e)
@@ -293,6 +318,9 @@ public class Janela extends JFrame
             esperaFimReta    = false;
             esperaLocalCirculo = false;
             esperaRaio      = false;
+            esperaLocalElipse = false;
+            esperaPrimeiroRaio = false;
+            esperaSegundoRaio = false;
 
               ferramentaEmUso = "ponto";
 
@@ -309,6 +337,9 @@ public class Janela extends JFrame
             esperaFimReta    = false;
             esperaLocalCirculo = false;
             esperaRaio      = false;
+            esperaLocalElipse = false;
+            esperaPrimeiroRaio = false;
+            esperaSegundoRaio = false;
 
             ferramentaEmUso = "reta";
 
@@ -325,10 +356,33 @@ public class Janela extends JFrame
             esperaFimReta    = false;
             esperaLocalCirculo = true;
             esperaRaio      = false;
+            esperaLocalElipse = false;
+            esperaPrimeiroRaio = false;
+            esperaSegundoRaio = false;
 
             ferramentaEmUso = "circulo";
 
             statusBar1.setText("Mensagem: clique o local do circulo");
+        }
+    }
+
+        protected class DesenhoDeElipse implements ActionListener
+    {
+        public void actionPerformed (ActionEvent e)    
+        {
+            esperaPonto      = false;
+            esperaInicioReta = false;
+            esperaFimReta    = false;
+            esperaLocalCirculo = false;
+            esperaRaio      = false;
+            esperaLocalElipse = true;
+            esperaPrimeiroRaio = false;
+            esperaSegundoRaio = false;
+
+
+            ferramentaEmUso = "Elipse";
+
+            statusBar1.setText("Mensagem: clique o local da elipse");
         }
     }
 
