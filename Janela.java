@@ -313,7 +313,7 @@ public class Janela extends JFrame
     {
           public void actionPerformed (ActionEvent e)    
           {
-              esperaPonto      = true;
+            esperaPonto      = true;
             esperaInicioReta = false;
             esperaFimReta    = false;
             esperaLocalCirculo = false;
@@ -324,7 +324,7 @@ public class Janela extends JFrame
 
               ferramentaEmUso = "ponto";
 
-              statusBar1.setText("Mensagem: clique o local do ponto desejado");
+              statusBar1.setText("Mensagem: clique no local do ponto desejado");
           }
     }
 

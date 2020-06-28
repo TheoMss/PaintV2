@@ -86,7 +86,7 @@ public class Circulo extends Figura
         g.drawOval(this.p1.getX(), this.p1.getY(),   // ponto inicial 
                     this.diametro, this.diametro);  // tamanho
         g.setColor(this.cor2);
-        g.fillOval(this.p1.getX(), this.p1.getY(),   // ponto inicial 
+        g.fillOval(this.p1.getX(), this.p1.getY(),   // Preencher com a cor desejada
                     this.diametro, this.diametro);
         g.setColor(this.cor);
         

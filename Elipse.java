@@ -126,6 +126,10 @@ public class Elipse extends Figura
                ":" +
                this.p2.getY() +
                ":" +
+               this.p3.getX() +
+               ":" +
+               this.p3.getY() +
+               ":" +
                this.getCor().getRed() +
                ":" +
                this.getCor().getGreen() +
